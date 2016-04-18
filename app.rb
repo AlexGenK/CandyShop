@@ -5,6 +5,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pony'
+require 'sqlite3'
 
 # главная страница
 get '/' do
@@ -45,13 +46,13 @@ post '/visit' do
 	@error=get_error_message({:username => "Enter username.\n", :phone => "Enter phone.\n", :data => "Enter data.\n"})
 
 	# если сформированно сообщение об ошибке, форма выводится заново. При этом введенные значения полей остаются
-	# если сообщение об ошибке пустое, данные из формы записываются в файл
+	# если сообщение об ошибке пустое, данные из формы записываются в БД
 	if @error!=""
 		erb :visit
 	else
-		f=File.open("./public/users.txt", "a")
-		f.write "#{@username} (tel. #{@phone}) visit on #{@data} and meet with #{@candy} or select #{@colorpicker} color\n" 
-		f.close
+		db=SQLite3::Database.new "./public/sql/candyshop.sqlite"
+		db.execute "INSERT INTO users (Name, Phone, Date, Candy, Color) VALUES ('#{@username}', '#{@phone}', '#{@data}', '#{@candy}', '#{@colorpicker}')"
+		db.close
 		erb "<h2>Congratulations! You make an appointment.</h2>"
 	end
 end
