@@ -1,0 +1,61 @@
+<!-- обработка записи на визит  -->
+
+<!-- Запуск плагинов colorpicker и datepicker-->
+<script type="text/javascript">
+  // причем плагины запустится только после загрузки страницы
+  $(function(){
+    $('#colorpicker').simplecolorpicker({theme: 'glyphicons'});
+    $('#datepicker').datepicker($.datepicker.regional[ "ru" ]);
+  })
+</script>
+
+<h3>Make an appointment</h3>
+<p>Here you can make an appointment for visit in the Candy Shop</p>
+
+<form action="/visit" method="POST">
+
+  <!-- Имя -->
+  <div class="form-group">
+    <label>Your name</label>
+    <input name = "username" type="text" class="form-control" placeholder="Name" value=<%= @username %>>
+  </div>
+
+  <!-- Телефон -->
+  <div class="form-group">
+    <label>Phone</label>
+    <input name = "phone" type="text" class="form-control" placeholder="Phone" value=<%= @phone %>>
+  </div>
+
+  <!-- время визита -->
+  <div class="form-group">
+    <label>Data and Time</label>
+    <input id="datepicker" name = "data" type="text" class="form-control" placeholder="Data and Time" value=<%= @data %>>
+  </div>
+
+  <!-- К кому -->
+  <div class="form-group">
+    <label>Who is our Candy?</label>
+    <select name = "candy" class="form-control">
+      <option>anyone</option>
+      <option>Foxie</option>
+      <option>Angela</option>
+      <option>Tasha</option>
+      <option>Dolores</option>
+      <option>Zara</option>
+    </select>
+  </div>
+
+  <!-- Выбор цвета -->
+  <div class="form-group">
+    <label>Or what color you prefered?</label>
+      <select id="colorpicker" name="colorpicker">
+        <option value="White">White</option>
+        <option value="Black">Black</option>
+        <option value="Yellow">Yellow</option>
+        <option value="Red">Red</option>
+      </select>
+  </div>
+
+  <!-- Отправка формы -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

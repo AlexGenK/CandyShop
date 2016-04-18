@@ -1,0 +1,31 @@
+<!-- вывод информации о визитах и сообщениях для администратора -->
+
+<!-- визиты -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Requests:</h3>
+  </div>
+  <!-- в панель выводится содержимое файла users.txt-->
+  <div class="panel-body">
+    <% f=File.open("./public/users.txt", "r") %>
+    <% while line=f.gets %>
+    <%= line %> <br>
+    <% end %>
+    <% f.close %>
+  </div>
+</div>
+
+<!-- сообщения -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Messages:</h3>
+  </div>
+  <!-- в панель выводится содержимое файла contacts.txt -->
+  <div class="panel-body">
+    <% f=File.open("./public/contacts.txt", "r") %>
+    <% while line=f.gets %>
+    <%= line %> <br>
+    <% end %>
+    <% f.close %>
+  </div>
+</div>

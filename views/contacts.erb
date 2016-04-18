@@ -1,0 +1,22 @@
+<!-- отправка сообщений -->
+
+<h3>Contacts</h3>
+<p>Send us a message</p>
+
+<form action="/contacts" method="POST">
+
+  <!-- адрес отправителя -->  		
+  <div class="form-group">
+    <label>Your email</label>
+    <input name = "email" type="email" class="form-control" placeholder="email" value=<%= @email %>>
+  </div>
+
+  <!-- сообщение -->
+  <div class="form-group">
+  	<label>Message</label>
+  	<textarea name = "message" class="form-control" rows="3"><%= @message %></textarea>
+  </div>
+
+  <!-- отправка формы --> 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
