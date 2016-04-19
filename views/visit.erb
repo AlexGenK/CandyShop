@@ -38,11 +38,11 @@
     <label>Who is our Candy?</label>
     <select name = "candy" class="form-control">
       <option>anyone</option>
-      <option>Foxie</option>
-      <option>Angela</option>
-      <option>Tasha</option>
-      <option>Dolores</option>
-      <option>Zara</option>
+      <option <%= @candy=="Foxie" ? "selected" : "" %>>Foxie</option>
+      <option <%= @candy=="Angela" ? "selected" : "" %>>Angela</option>
+      <option <%= @candy=="Tasha" ? "selected" : "" %>>Tasha</option>
+      <option <%= @candy=="Dolores" ? "selected" : "" %>>Dolores</option>
+      <option <%= @candy=="Zara" ? "selected" : "" %>>Zara</option>
     </select>
   </div>
 
@@ -50,10 +50,10 @@
   <div class="form-group">
     <label>Or what color you prefered?</label>
       <select id="colorpicker" name="colorpicker">
-        <option value="White">White</option>
-        <option value="Black">Black</option>
-        <option value="Yellow">Yellow</option>
-        <option value="Red">Red</option>
+        <option value="White" <%= @colorpicker=="White" ? "selected" : "" %>>White</option>
+        <option value="Black" <%= @colorpicker=="Black" ? "selected" : "" %>>Black</option>
+        <option value="Yellow" <%= @colorpicker=="Yellow" ? "selected" : "" %>>Yellow</option>
+        <option value="Red" <%= @colorpicker=="Red" ? "selected" : "" %>>Red</option>
       </select>
   </div>
 
