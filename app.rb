@@ -1,5 +1,3 @@
-# облегченный шаблон для sinatra + bootstrap
-
 #encoding: utf-8
 require 'rubygems'
 require 'sinatra'
@@ -111,7 +109,7 @@ def send_mail(hh)
 						:port                 => '587',
 						:enable_starttls_auto => true,
 						:user_name            => 'suburbakskin@gmail.com',
-						:password             => 'assassin6871',
+						:password             => 'xxxxxxxxxxxxx',
 						:authentication       => :plain,
 						:domain               => "localhost.localdomain"
 							}
