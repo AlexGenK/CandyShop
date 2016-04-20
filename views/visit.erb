@@ -35,9 +35,10 @@
 
   <!-- К кому -->
   <div class="form-group">
-    <label>Who is our Candy?</label>
+    <label>Who is your Candy?</label>
     <select name = "candy" class="form-control">
       <option>anyone</option>
+      <!-- Сохраняется предыдущее введенное значение -->
       <option <%= @candy=="Foxie" ? "selected" : "" %>>Foxie</option>
       <option <%= @candy=="Angela" ? "selected" : "" %>>Angela</option>
       <option <%= @candy=="Tasha" ? "selected" : "" %>>Tasha</option>
@@ -50,6 +51,7 @@
   <div class="form-group">
     <label>Or what color you prefered?</label>
       <select id="colorpicker" name="colorpicker">
+        <!-- Сохраняется предыдущее введенное значение -->
         <option value="White" <%= @colorpicker=="White" ? "selected" : "" %>>White</option>
         <option value="Black" <%= @colorpicker=="Black" ? "selected" : "" %>>Black</option>
         <option value="Yellow" <%= @colorpicker=="Yellow" ? "selected" : "" %>>Yellow</option>
