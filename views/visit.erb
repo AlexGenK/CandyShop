@@ -5,7 +5,8 @@
   // причем плагины запустится только после загрузки страницы
   $(function(){
     $('#colorpicker').simplecolorpicker({theme: 'glyphicons'});
-    $('#datetimepicker').datetimepicker({locale: 'ru'});
+    $.datetimepicker.setLocale('ru');
+    $('#datetimepicker').datetimepicker({step: 30});
   })
 </script>
 
@@ -18,19 +19,19 @@
   <!-- Имя -->
   <div class="form-group">
     <label>Your name</label>
-    <input name = "username" type="text" class="form-control" placeholder="Name" value=<%= @username %>>
+    <input name = "username" type="text" class="form-control" placeholder="Name" value="<%= @username %>">
   </div>
 
   <!-- Телефон -->
   <div class="form-group">
     <label>Phone</label>
-    <input name = "phone" type="text" class="form-control" placeholder="Phone" value=<%= @phone %>>
+    <input name = "phone" type="text" class="form-control" placeholder="Phone" value="<%= @phone %>">
   </div>
 
   <!-- время визита -->
   <div class="form-group">
       <label>Data and Time</label>
-      <input name = "data" id='datetimepicker' type="text" class="form-control" placeholder="Data and Time" value=<%= @data %>>
+      <input name = "data" id='datetimepicker' type="text" class="form-control" placeholder="Data and Time" value="<%= @data %>">
   </div>
 
   <!-- К кому -->
