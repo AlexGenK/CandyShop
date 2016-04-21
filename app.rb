@@ -8,8 +8,8 @@ require 'sqlite3'
 # процедура инициализации
 configure do
 	# подключаемся, а при отсутствии создаем БД
-	@db=SQLite3::Database.new "./public/sql/candyshop.db"
-	@db.execute "CREATE TABLE IF NOT EXISTS 'Users' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, 
+	$db=SQLite3::Database.new "./public/sql/candyshop.db"
+	$db.execute "CREATE TABLE IF NOT EXISTS 'Users' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, 
 													'Name' VARCHAR, 
 													'Phone' VARCHAR, 
 													'Date' VARCHAR, 
@@ -60,7 +60,9 @@ post '/visit' do
 	if @error!=""
 		erb :visit
 	else
-		@db.execute "INSERT INTO users (Name, Phone, Date, Candy, Color) VALUES ('#{@username}', '#{@phone}', '#{@data}', '#{@candy}', '#{@colorpicker}')"
+		$db.execute "INSERT INTO users (Name, Phone, Date, Candy, Color) 
+							 VALUES (?, ?, ?, ?, ?)",
+							 [@username, @phone, @data, @candy, @colorpicker]
 		erb "<h2>Congratulations! You make an appointment.</h2>"
 	end
 end
