@@ -5,13 +5,11 @@
   <div class="panel-heading">
     <h3 class="panel-title">Requests:</h3>
   </div>
-  <!-- в панель выводится содержимое файла users.txt-->
+  <!-- в панель выводится содержимое БД users-->
   <div class="panel-body">
-    <% f=File.open("./public/users.txt", "r") %>
-    <% while line=f.gets %>
-    <%= line %> <br>
+    <% $db.execute "SELECT * FROM users" do |line| %>
+    <%= "#{line[1].encode("utf-8")}, tel. #{line[2]} meet #{line[3]} with #{line[4]} or select color #{line[5]};" %> <br>
     <% end %>
-    <% f.close %>
   </div>
 </div>
 
