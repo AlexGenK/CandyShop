@@ -7,8 +7,8 @@
   </div>
   <!-- в панель выводится содержимое БД users-->
   <div class="panel-body">
-    <% $db.execute "SELECT * FROM users" do |line| %>
-    <%= "#{line[1].encode("utf-8")}, tel. #{line[2]} meet #{line[3]} with #{line[4]} or select color #{line[5]};" %> <br>
+    <% $db.execute "SELECT * FROM users ORDER BY id DESC" do |line| %>
+    <%= "#{line['Name'].encode('utf-8')}, tel. #{line['Phone']} meet #{line['Date']} with #{line['Candy']} or select color #{line['Color']};" %> <br>
     <% end %>
   </div>
 </div>
@@ -21,8 +21,8 @@
   <!-- в панель выводится содержимое файла БД contacts -->
   <div class="panel-body">
     <% $db.execute "SELECT * FROM contacts" do |line| %>
-    <%= line[1] %> <br>
-    <%= line[2].encode("utf-8") %> <br>
+    <%= line['Email'] %> <br>
+    <%= line['Message'].encode('utf-8') %> <br>
     <br>
     <% end %>
   </div>

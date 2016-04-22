@@ -9,6 +9,7 @@ require 'sqlite3'
 configure do
 	# подключаемся, а при отсутствии создаем БД
 	$db=SQLite3::Database.new "./public/sql/candyshop.db"
+	$db.results_as_hash = true
 	$db.execute "CREATE TABLE IF NOT EXISTS 'Users' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, 
 													'Name' VARCHAR, 
 													'Phone' VARCHAR, 
