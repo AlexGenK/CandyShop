@@ -15,6 +15,9 @@ configure do
 													'Date' VARCHAR, 
 													'Candy' VARCHAR, 
 													'Color' VARCHAR)"
+	$db.execute "CREATE TABLE IF NOT EXISTS 'Contacts' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
+														'Email' VARCHAR, 
+														'Message' VARCHAR)"
 end
 
 # главная страница
@@ -61,8 +64,8 @@ post '/visit' do
 		erb :visit
 	else
 		$db.execute "INSERT INTO users (Name, Phone, Date, Candy, Color) 
-							 VALUES (?, ?, ?, ?, ?)",
-							 [@username, @phone, @data, @candy, @colorpicker]
+							 	VALUES (?, ?, ?, ?, ?)",
+							 	[@username, @phone, @data, @candy, @colorpicker]
 		erb "<h2>Congratulations! You make an appointment.</h2>"
 	end
 end
@@ -78,16 +81,14 @@ post '/contacts' do
 	@error=get_error_message({:email => "Enter email.\n", :message => "Enter message.\n"})
 
 	# если сформированно сообщение об ошибке, форма выводится заново. При этом введенные значения полей остаются
-	# если сообщение об ошибке пустое, отсылаестя контрольное сообщение и данные из формы записываются в файл
+	# если сообщение об ошибке пустое, отсылаестя контрольное сообщение и данные из формы записываются БД
 	if @error!=""
 		erb :contacts
 	else
-
-		send_mail({:mymail => @email, :mymsubj => "CandyShop", :mymessage => "You send a message:\n\n#{@message}\n\nWe got it and will soon get back to you." })
-		f=File.open("./public/contacts.txt", "a")
-		f.write "#{@email} send:\n" 
-		f.write "#{@message}\n\n"
-		f.close
+		# send_mail({:mymail => @email, :mymsubj => "CandyShop", :mymessage => "You send a message:\n\n#{@message}\n\nWe got it and will soon get back to you." })
+		$db.execute "INSERT INTO contacts (Email, Message) 
+							 	VALUES (?, ?)",
+							 	[@email, @message]
 		erb "<h2>Thank You! Your message will be reviewed in the near future.</h2>"
 	end
 end
