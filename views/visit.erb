@@ -38,13 +38,10 @@
   <div class="form-group">
     <label>Who is your Candy?</label>
     <select name = "candy" class="form-control">
-      <option>anyone</option>
-      <!-- Сохраняется предыдущее введенное значение -->
-      <option <%= @candy=="Foxie" ? "selected" : "" %>>Foxie</option>
-      <option <%= @candy=="Angela" ? "selected" : "" %>>Angela</option>
-      <option <%= @candy=="Tasha" ? "selected" : "" %>>Tasha</option>
-      <option <%= @candy=="Dolores" ? "selected" : "" %>>Dolores</option>
-      <option <%= @candy=="Zara" ? "selected" : "" %>>Zara</option>
+      <!-- Элементы списка берутся из БД с сохранением предыдущего значения -->
+      <% $db.execute "SELECT Candyname FROM Candies" do |line| %>
+          <option <%= @candy==line['Candyname'] ? "selected" : "" %>> <%= line['Candyname']%> </option>
+      <% end %>
     </select>
   </div>
 

@@ -10,6 +10,8 @@ configure do
 	# подключаемся, а при отсутствии создаем БД
 	$db=SQLite3::Database.new "./public/sql/candyshop.db"
 	$db.results_as_hash = true
+
+	# создаем таблицы в БД при их отсутствии
 	$db.execute "CREATE TABLE IF NOT EXISTS 'Users' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, 
 													'Name' VARCHAR, 
 													'Phone' VARCHAR, 
@@ -19,6 +21,13 @@ configure do
 	$db.execute "CREATE TABLE IF NOT EXISTS 'Contacts' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
 														'Email' VARCHAR, 
 														'Message' VARCHAR)"
+	$db.execute "CREATE TABLE IF NOT EXISTS 'Candies' ('Candyname' VARCHAR PRIMARY KEY  NOT NULL  UNIQUE)"
+
+	# заполнение БД значениями по умолчанию
+	candy_init=["anyone", "Foxie", "Angela", "Tasha", "Dolores", "Zara"]
+	candy_init.each do |nam|
+		$db.execute "INSERT OR REPLACE INTO 'Candies' ('Candyname') VALUES (?)", [nam]
+	end
 end
 
 # главная страница
