@@ -1,4 +1,4 @@
-<!-- вывод информации о визитах и сообщениях для администратора -->
+  <!-- вывод информации о визитах и сообщениях для администратора -->
 
 <!-- визиты -->
 <div class="panel panel-primary">
@@ -7,9 +7,30 @@
   </div>
   <!-- в панель выводится содержимое БД users-->
   <div class="panel-body">
-    <% $db.execute "SELECT * FROM users ORDER BY id DESC" do |line| %>
-    <%= "#{line['Name'].encode('utf-8')}, tel. #{line['Phone']} meet #{line['Date']} with #{line['Candy']} or select color #{line['Color']};" %> <br>
-    <% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Date</th>
+          <th>Candy</th>
+          <th>Color</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% $db.execute "SELECT * FROM users ORDER BY id DESC" do |line| %>
+          <tr>
+            <td><%= line['Id'] %></td>
+            <td><%= line['Name'].encode('utf-8') %></td>
+            <td><%= line['Phone'] %></td>
+            <td><%= line['Date'] %></td>
+            <td><%= line['Candy']%></td>
+            <td><%= line['Color'] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -20,10 +41,21 @@
   </div>
   <!-- в панель выводится содержимое файла БД contacts -->
   <div class="panel-body">
-    <% $db.execute "SELECT * FROM contacts" do |line| %>
-    <%= line['Email'] %> <br>
-    <%= line['Message'].encode('utf-8') %> <br>
-    <br>
-    <% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>EMail</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% $db.execute "SELECT * FROM contacts" do |line| %>
+          <tr>
+            <td><%= line['Email'] %></td>
+            <td><%= line['Message'].encode('utf-8') %></td>
+          </tr> 
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
