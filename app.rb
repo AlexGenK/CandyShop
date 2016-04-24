@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
+require 'date'
 
 # процедура инициализации
 configure do
@@ -20,7 +21,8 @@ configure do
 													'Color' VARCHAR)"
 	$db.execute "CREATE TABLE IF NOT EXISTS 'Contacts' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
 														'Email' VARCHAR, 
-														'Message' VARCHAR)"
+														'Message' VARCHAR,
+														'Time' VARCHAR)"
 	$db.execute "CREATE TABLE IF NOT EXISTS 'Candies' ('Candyname' VARCHAR PRIMARY KEY  NOT NULL  UNIQUE)"
 
 	# заполнение БД значениями по умолчанию
@@ -96,9 +98,9 @@ post '/contacts' do
 		erb :contacts
 	else
 		# send_mail({:mymail => @email, :mymsubj => "CandyShop", :mymessage => "You send a message:\n\n#{@message}\n\nWe got it and will soon get back to you." })
-		$db.execute "INSERT INTO contacts (Email, Message) 
-							 	VALUES (?, ?)",
-							 	[@email, @message]
+		$db.execute "INSERT INTO contacts (Email, Message, Time) 
+							 	VALUES (?, ?, ?)",
+							 	[@email, @message, Time.now.to_s]
 		erb "<h2>Thank You! Your message will be reviewed in the near future.</h2>"
 	end
 end

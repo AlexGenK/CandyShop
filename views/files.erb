@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <% $db.execute "SELECT * FROM users ORDER BY id DESC" do |line| %>
+        <% $db.execute "SELECT * FROM users ORDER BY id" do |line| %>
           <tr>
             <td><%= line['Id'] %></td>
             <td><%= line['Name'].encode('utf-8') %></td>
@@ -44,13 +44,15 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>Time</th>
           <th>EMail</th>
           <th>Message</th>
         </tr>
       </thead>
       <tbody>
-        <% $db.execute "SELECT * FROM contacts" do |line| %>
+        <% $db.execute "SELECT * FROM contacts ORDER BY Time" do |line| %>
           <tr>
+            <td><%= line['Time'] %></td>
             <td><%= line['Email'] %></td>
             <td><%= line['Message'].encode('utf-8') %></td>
           </tr> 
