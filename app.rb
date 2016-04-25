@@ -6,6 +6,18 @@ require 'pony'
 require 'sqlite3'
 require 'date'
 
+# функция проверяет, есть ли значение value в поле field таблицы table БД db
+def db_val_is_exist?(db, table, field, value)
+	return db.execute("SELECT * FROM #{table} WHERE #{field}=?", [value]).length>0
+end
+
+# функция заполняет БД db значениями из массива value, если они не существуют в таблице
+def db_seed(db, value)
+	value.each do |element|
+		db.execute("INSERT INTO Candies (Candyname) VALUES (?)", [element]) unless db_val_is_exist?(db, 'Candies', 'Candyname', element)
+	end
+end
+
 # процедура инициализации
 configure do
 	# подключаемся, а при отсутствии создаем БД
@@ -19,17 +31,16 @@ configure do
 													'Date' VARCHAR, 
 													'Candy' VARCHAR, 
 													'Color' VARCHAR)"
-	$db.execute "CREATE TABLE IF NOT EXISTS 'Contacts' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , 
+	$db.execute "CREATE TABLE IF NOT EXISTS 'Contacts' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, 
 														'Email' VARCHAR, 
 														'Message' VARCHAR,
 														'Time' VARCHAR)"
-	$db.execute "CREATE TABLE IF NOT EXISTS 'Candies' ('Candyname' VARCHAR PRIMARY KEY  NOT NULL  UNIQUE)"
+	$db.execute "CREATE TABLE IF NOT EXISTS 'Candies' ('Id' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE,
+														'Candyname' VARCHAR)"
 
 	# заполнение БД значениями по умолчанию
-	candy_init=["anyone", "Foxie", "Angela", "Tasha", "Dolores", "Zara"]
-	candy_init.each do |nam|
-		$db.execute "INSERT OR REPLACE INTO 'Candies' ('Candyname') VALUES (?)", [nam]
-	end
+	db_seed($db, ["anyone", "Foxie", "Angela", "Tasha", "Dolores", "Zara", "Apolonia"])
+
 end
 
 # главная страница
