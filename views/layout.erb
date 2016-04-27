@@ -59,7 +59,6 @@
 				<!-- вывод сообщения об ошибке, если оно существует -->
 			      <%if @error && @error.length > 0 then %>
 			          <div class="alert alert-danger"><%=@error%></div>
-			          <% @error=nil %>
 			      <% end %>
 			      <%= yield %>
 			</div>

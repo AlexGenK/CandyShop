@@ -10,7 +10,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Phone</th>
           <th>Date</th>
@@ -19,14 +18,13 @@
         </tr>
       </thead>
       <tbody>
-        <% $db.execute "SELECT * FROM users ORDER BY id" do |line| %>
+        <% $db.execute "SELECT * FROM users ORDER BY date" do |line| %>
           <tr>
-            <td><%= line['Id'] %></td>
             <td><%= line['Name'].encode('utf-8') %></td>
             <td><%= line['Phone'] %></td>
             <td><%= line['Date'] %></td>
             <td><%= line['Candy']%></td>
-            <td><%= line['Color'] %></td>
+            <td style="background-color: <%= line['Color'] %>; color: <%= line['Color']=='Black' ? 'white' : 'black' %>"><%= line['Color'] %></td>
           </tr>
         <% end %>
       </tbody>
